@@ -165,9 +165,40 @@
   /* Make sure the light layer text appears above the overlay core */
   .content-light { z-index:5; }
 
+  /* CRT Popup */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-text {
+  font-size: 3rem;
+  font-weight: 900;
+  color: lime;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(0,255,0,0.8), 0 0 20px rgba(0,255,0,0.6);
+  transform: perspective(500px) rotateX(12deg);
+  animation: crtPulse 1.4s infinite alternate;
+}
+
+@keyframes crtPulse {
+  0%   { text-shadow: 0 0 4px rgba(0,255,0,0.6), 0 0 12px rgba(0,255,0,0.4); }
+  100% { text-shadow: 0 0 10px rgba(0,255,0,0.9), 0 0 26px rgba(0,255,0,0.7); }
+}
+
 </style>
 </head>
 <body>
+<div id="popup" class="popup" style="display:none;">
+  <div class="popup-text">REFRESH THIS PAGE AGAIN!</div>
+</div>
 
   <div class="grid">
     <!-- Discord (top-left) -->
@@ -301,6 +332,18 @@
   allow="autoplay" 
   allowfullscreen>
 </iframe>
+<script>
+  // Show popup only once per session
+  if (!sessionStorage.getItem('popupShown')) {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'flex';
+    sessionStorage.setItem('popupShown', 'true');
+  } else {
+    // Ensure popup is hidden on reloads
+    const popup = document.getElementById('popup');
+    if (popup) popup.remove();
+  }
+</script>
 
 </body>
 </html>
