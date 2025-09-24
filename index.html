@@ -473,15 +473,8 @@ draw();
 
  <script>
 document.getElementById("startBtn").addEventListener("click", function() {
-  // Fade in canvas
-  document.getElementById("canvas").style.opacity = "1";
   // Hide popup
   document.getElementById("popup").style.display = "none";
-
-  // Unmute & play YouTube
-  const iframe = document.getElementById("ytplayer");
-  iframe.src = iframe.src.replace("autoplay=0", "autoplay=1").replace("mute=1","mute=0");
-});
 </script>
   
 </body>
